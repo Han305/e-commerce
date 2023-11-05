@@ -29,11 +29,15 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                 </ul>
-                <form class="d-flex me-auto w-50" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <form class="d-flex me-auto w-50" role="search" action="{{ route('main') }}">
+                    @csrf
+                    <input class="form-control me-2" type="text" placeholder="Search" name="search" value="{{ request('search') }}" />
+                    <button type="submit" class="btn btn-success">Search</button>
                 </form>
             </div>
             <div class="d-flex justify-content-end">
+                {{-- <a href="{{ route('notif') }}">
+                </a> --}}
                 <i class="bi bi-bell-fill fs-3"></i>
                 <a href="{{ route('cart') }}" class="text-decoration-none text-dark">
                     <i class="bi bi-cart-fill px-4 fs-3"></i>

@@ -42,9 +42,12 @@ Route::middleware('auth')->group(function() {
     
     Route::get('/main', [TransaksiController::class, 'main'])->name('main');
     Route::get('/profil', [TransaksiController::class, 'profil'])->name('profil');
+    Route::put('/profil/{user}', [TransaksiController::class, 'profilUpdate'])->name('profil.update');
     Route::get('/page/{post}', [TransaksiController::class, 'page'])->name('page');
     Route::get('/keranjang/{post}', [TransaksiController::class, 'store'])->name('keranjang');
     Route::get('/cart', [TransaksiController::class, 'cart'])->name('cart');
     Route::get('/cart/{post}', [TransaksiController::class, 'destroy'])->name('cart.destroy');
     Route::post('/pesan', [TransaksiController::class, 'simpanPesanan'])->name('pesan.simpan');
+
+    // Route::get('/notifikasi', [TransaksiController::class, 'notifikasi'])->name('notif');
 });

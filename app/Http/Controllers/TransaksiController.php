@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\Pesanan;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ class TransaksiController extends Controller
 {
 
     public function main() {
-        $posts = Produk::all();
+        $posts = Produk::latest()->filter()->get();
         return view('user.main', [
             'posts' => $posts
         ]);
@@ -30,7 +31,21 @@ class TransaksiController extends Controller
     }
 
     public function profil() {
-        return view('user.profil');
+        $user = Auth::user();
+        return view('user.profil', [
+            'user' => $user
+        ]);
+    }
+
+    public function profilUpdate(Request $request, $user) {
+        $data = User::findOrFail($user);
+        $data->name = $request->name;
+        $data->username = $request->username;
+        $data->email = $request->email;
+        $data->telp = $request->telp;
+        $data->update();
+
+        return redirect('/main');
     }
     
     public function store(Request $request, $id) {
@@ -109,5 +124,9 @@ class TransaksiController extends Controller
     
     return redirect((route('cart')))->with('message', 'Pesanan Anda dengan nomor pesanan ' . $nomorPesanan . ' telah disimpan! dan sedang menunggu konfirmasi');
 }
+
+    // public function notifikasi() {
+        
+    // }
 
 }
