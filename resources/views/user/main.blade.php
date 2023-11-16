@@ -1,17 +1,10 @@
 @extends('user.template')
 
 @section('body')
-<div class="py-3">
-@if(session('notification'))
-    <div class="alert alert-success">
-        {{ session('notification') }}
-    </div>
-@endif
-</div>
-<div class="text-center pb-4">
+    <div class="text-center pb-4">
 
-    <h4>Produk</h4>
-</div>
+        <h4>Produk</h4>
+    </div>
     <div class="row">
         @forelse ($posts as $post)
             <div class="col-4">

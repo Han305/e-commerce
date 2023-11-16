@@ -5,12 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Produk;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function main() {
+        $posts = Produk::latest()->filter()->get();
+        return view('main', [
+            'posts' => $posts
+        ]);
+    }
+
+    public function page (Produk $post)
+    {
+        $posts = Produk::all();       
+        return view('page', compact('post'), [            
+            'posts' => $posts
+        ]);
+    }
+
+    public function cart($id) {
+        $produk = Produk::findOrFail($id);
+        return redirect()->route('halaman', ['post' => $produk])->with([
+            'message' => 'Anda belum login!']);
+    }
+    
     public function login() {
         return view('login');
     }

@@ -29,7 +29,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                 </ul>
-                <form class="d-flex me-auto w-50" role="search" action="{{ route('main') }}">
+                <form class="d-flex me-auto w-50" role="search" action="{{ route('utama') }}">
                     @csrf
                     <input class="form-control me-2" type="text" placeholder="Search" name="search"
                         value="{{ request('search') }}" />
@@ -37,22 +37,38 @@
                 </form>
             </div>
             <div class="d-flex justify-content-end">
-                <a href="{{ route('riwayat.pesanan') }}" class="text-decoration-none text-dark">
-                    <i class="bi bi-journal fs-3"></i>
-                </a>
-                <a href="{{ route('cart') }}" class="text-decoration-none text-dark">
-                    <i class="bi bi-cart-fill px-4 fs-3"></i>
-                </a>
-                <a href="{{ route('profil') }}" class="text-decoration-none text-dark">
-                    <i class="bi bi-person-circle me-5 fs-3"></i>
-                </a>
+                <a href="{{ route('register') }}" class="btn me-2 btn-outline-primary">Sign Up</a>
+                <a href="{{ route('login') }}" class="btn btn-primary">Sign In</a>
             </div>
         </div>
     </nav>
     <img src="{{ asset('img/banner.png') }}" class="img-fluid" alt="">
 
     <div class="container pt-5">
-        @yield('body')
+        <div class="text-center pb-4">
+            <h4>Produk</h4>
+        </div>
+        <div class="row">
+            @forelse ($posts as $post)
+                <div class="col-4">
+                    <div class="card overflow-hidden mb-4">
+                        <img src="{{ asset($post->image) }}" alt="Post Image">
+                        <a href="{{ route('halaman', ['post' => $post->id]) }}" class="text-decoration-none text-dark">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $post->nama }}</h5>
+                                <div class="pt-3">
+                                    <p>Rp. {{ $post->harga }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <div class="alert alert-dark text-center">
+                    No post found
+                </div>
+            @endforelse
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

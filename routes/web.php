@@ -18,8 +18,11 @@ use App\Http\Controllers\PesananController;
 */
 
 Route::controller(AuthController::class)->middleware('guest')->group(function() {
-    Route::get('/', [AuthController::class, 'login'])->name('login');
-    Route::post('/', [AuthController::class, 'loginProcess'])->name('login.process');
+    Route::get('/', [AuthController::class, 'main'])->name('utama');    
+    Route::get('/halaman/{post}', [AuthController::class, 'page'])->name('halaman');    
+    Route::get('/pag/{post}', [AuthController::class, 'cart'])->name('pag');    
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'registerProcess'])->name('register.process');
 });
@@ -39,6 +42,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/pesanan', [PesananController::class, 'pesanan'])->name('pesanan');    
     Route::get('/riwayat', [PesananController::class, 'riwayat'])->name('riwayat');   
     Route::post('/pesanan/konfirmasi/{id}', [PesananController::class, 'konfirmasiPesanan'])->name('pesanan.konfirmasi'); 
+    Route::get('/riwayat/pesanan', [PesananController::class, 'transaksi'])->name('riwayat.pesanan');   
     
     Route::get('/main', [TransaksiController::class, 'main'])->name('main');
     Route::get('/profil', [TransaksiController::class, 'profil'])->name('profil');

@@ -17,6 +17,14 @@ class PesananController extends Controller
         ]);
     }
     
+    public function transaksi() {
+        $user = auth()->user();
+        $posts = Riwayat::where('user_id', $user->id)->get();
+
+        return view('user.pesanan', [
+            'posts' => $posts
+        ]);
+    }
 
     public function konfirmasiPesanan($id) {        
         $pesanan = Pesanan::find($id);
@@ -27,7 +35,7 @@ class PesananController extends Controller
         $riwayat->total_harga = $pesanan->total_harga;
         $riwayat->nama_produk = $pesanan->nama_produk;
         $riwayat->status = "Sudah Dikonfirmasi";
-        $riwayat->user_id = Auth::user()->id;
+        $riwayat->user_id = $pesanan->user_id;
         $riwayat->save();
     
         $pesanan->delete();        

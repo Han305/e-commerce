@@ -23,7 +23,7 @@ class TransaksiController extends Controller
     }
 
     public function page (Produk $post)
-    {;
+    {
         $posts = Produk::all();       
         return view('user.page', compact('post'), [            
             'posts' => $posts
